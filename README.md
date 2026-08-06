@@ -1,74 +1,41 @@
-# 🎸 Online Guitar Shop
+# Online Guitar Shop
 
-A 3-page guitar shop web application built with **React**, **TypeScript**, **Apollo Client**, and **GraphQL**, based on a Figma design.
+A three-page React and TypeScript catalogue that consumes a GraphQL API. It was built from a supplied design assignment.
 
-This project was created for the **Software Engineer Intern Assignment**.
+## Features
 
----
+- Brand catalogue with navigation to each brand's models
+- Model search and type filtering
+- Infinite scrolling for model results
+- Specification and musician tabs on the model details page
+- English, Macedonian, and Albanian translations with i18next
 
-## 📄 Features
+## Technology
 
-### ✅ Page 1 – Guitar Brands
-- Displays all guitar brands from the GraphQL API.
-- Clicking a brand navigates to the model list page.
+React, TypeScript, Vite, Apollo Client, GraphQL, React Router, i18next, styled-components, and CSS Modules.
 
-### ✅ Page 2 – Guitar Models
-- Shows all models for the selected brand.
-- Includes:
-  - Search bar to filter models by name.
-  - Type filter (Electric, Acoustic, etc.).
-  - **Infinite scroll** (loads more models as you scroll).
-- Clicking a model navigates to the details page.
+## Setup
 
-### ✅ Page 3 – Guitar Details
-- Displayed in two tabs:
-  - **Specs** – Shows guitar specifications.
-  - **Musicians** – Displays musicians using the guitar.
-    - Only 2 musicians shown at a time with "Show More" functionality.
+```bash
+git clone https://github.com/Ton4ee/Guitar-Shop.git
+cd Guitar-Shop
+npm ci
+npm run dev
+```
 
-### 🌐 Language Support
-- Supports **English**, **Macedonian**, and **Albanian**.
-- Language can be changed from the footer.
+Open the local URL printed by Vite (normally `http://localhost:5173`).
 
----
+## Validation commands
 
-## 🚀 Technologies
+```bash
+npm run lint
+npm run build
+```
 
-- **React + Vite**
-- **TypeScript**
-- **Apollo Client**
-- **GraphQL**
-- **React Router**
-- **i18next** (internationalization)
-- **Styled Components**
-- **CSS Modules**
+## API
 
----
+The Apollo client is configured for `https://graphql-api-brown.vercel.app/api/graphql`.
 
-## 🔧 Setup Instructions
+The application requires that service to be available; this repository does not contain the GraphQL server.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Ton4ee/Guitar-Shop.git
-   cd Guitar-Shop
-2. **Install dependencies**
-    ```bash
-   npm install
-3. **Start the development server**
-    ```bash
-   npm run dev
-4. **Open http://localhost:5173 in your browser.**
 
-🔗 API
-GraphQL API used:
-
-https://graphql-api-brown.vercel.app/api/graphql
-
-🎨 Figma Design
-Design reference:
-https://www.figma.com/design/Q9sgkZlKkPIkiX3eRSKCJP/Design-Task?node-id=1-2&p=f&t=bTP28e3rsrbJdjD2-0
-
-👤 Author
-Antonio Puceski
-
-Feel free to reach out if you have any questions. Thank you! 🎸
