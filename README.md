@@ -49,7 +49,7 @@ This project was created for the **Software Engineer Intern Assignment**.
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Ton4ee/Guitar-Shop.git
+   git clone https://github.com/AntonioPuceski/Guitar-Shop.git
    cd Guitar-Shop
 2. **Install dependencies**
     ```bash
