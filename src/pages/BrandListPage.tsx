@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import type { Brand } from '../types/graphql';
 
 const GET_BRANDS = gql`
-  query {
+  query GetBrands {
     findAllBrands {
       id
       name
@@ -31,7 +31,10 @@ const Grid = styled.div`
   gap: 24px;
 `;
 
-const Card = styled.div`
+const Card = styled.button`
+  border: none;
+  font: inherit;
+  color: inherit;
   background: #fff;
   border-radius: 12px;
   padding: 16px;

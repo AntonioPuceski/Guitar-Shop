@@ -61,12 +61,12 @@ const Tabs = styled.div`
   margin-bottom: 16px;
 `;
 
-const Tab = styled.button<{ active: boolean }>`
+const Tab = styled.button<{ $active: boolean }>`
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
-  background-color: ${({ active }) => (active ? '#333' : '#eee')};
-  color: ${({ active }) => (active ? '#fff' : '#333')};
+  background-color: ${({ $active }) => ($active ? '#333' : '#eee')};
+  color: ${({ $active }) => ($active ? '#fff' : '#333')};
   font-weight: bold;
   cursor: pointer;
 `;
@@ -131,7 +131,8 @@ export default function ModelDetailsPage() {
   if (loading) return <p>{t('loading')}</p>;
   if (error) return <p>{t('errorLoading')}</p>;
 
-  const model: Model = data.findUniqueModel;
+  const model: Model | null = data?.findUniqueModel;
+  if (!model) return <p>{t('errorLoading')}</p>;
 
   return (
     <Container>
@@ -144,16 +145,16 @@ export default function ModelDetailsPage() {
       <p>{model.description}</p>
 
       <Tabs>
-        <Tab active={tab === 'specs'} onClick={() => setTab('specs')}>
+        <Tab $active={tab === 'specs'} onClick={() => setTab('specs')}>
           {t('specs')}
         </Tab>
-        <Tab active={tab === 'musicians'} onClick={() => setTab('musicians')}>
+        <Tab $active={tab === 'musicians'} onClick={() => setTab('musicians')}>
           {t('musicians')}
         </Tab>
       </Tabs>
 
       {tab === 'specs' &&
-        Object.entries(model.specs).map(([key, value]) => (
+        Object.entries(model.specs).filter(([key]) => key !== '__typename').map(([key, value]) => (
           <SpecItem key={key}>
             <strong>{key}:</strong> {value}
           </SpecItem>

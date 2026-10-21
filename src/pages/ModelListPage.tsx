@@ -78,7 +78,10 @@ const Grid = styled.div`
   gap: 32px;
 `;
 
-const Card = styled.div`
+const Card = styled.button`
+  font: inherit;
+  color: inherit;
+  img { width: 100%; height: 160px; object-fit: contain; }
   padding: 16px;
   border: 1px solid #ddd;
   border-radius: 12px;
@@ -111,17 +114,17 @@ export default function ModelListPage() {
     fetchPolicy: 'cache-and-network',
   });
 
-  const [searchModels, { data: searchData, loading: searchLoading }] =
+  const [searchModels, { data: searchData, loading: searchLoading, error: searchError }] =
     useLazyQuery(SEARCH_MODELS);
 
   useEffect(() => {
     if (searchTerm.trim()) {
       setVisibleCount(6);
-      searchModels({ variables: { brandId: brandId!, name: searchTerm } });
+      searchModels({ variables: { brandId: brandId!, name: searchTerm.trim() } });
     }
   }, [searchTerm, brandId, searchModels]);
 
-  const models: Model[] = searchTerm
+  const models: Model[] = searchTerm.trim()
     ? searchData?.searchModels ?? []
     : data?.findBrandModels ?? [];
 
@@ -130,7 +133,7 @@ export default function ModelListPage() {
   );
 
   const displayed = filtered.slice(0, visibleCount);
-  const isLoading = loading || (searchTerm && searchLoading);
+  const isLoading = loading && !data;
 
   // Infinite scroll sentinel logic
   const observer = useRef<IntersectionObserver | null>(null);
@@ -149,7 +152,7 @@ export default function ModelListPage() {
   );
 
   if (isLoading) return <p>{t('loading')}</p>;
-  if (error) return <p>{t('errorLoading')}</p>;
+  if (error && !data) return <p>{t('errorLoading')}</p>;
 
   return (
     <Container>
@@ -166,6 +169,7 @@ export default function ModelListPage() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <Filter
+          aria-label={t('allTypes')}
           value={typeFilter}
           onChange={(e) => {
             setTypeFilter(e.target.value);
@@ -180,6 +184,8 @@ export default function ModelListPage() {
         </Filter>
       </Controls>
 
+      {searchLoading && <p role="status">{t('loading')}</p>}
+      {searchTerm.trim() && searchError && <p role="alert">{t('errorLoading')}</p>}
       <Grid>
         {displayed.map((model) => (
           <Card
